@@ -4,6 +4,15 @@ import os
 def run_commands():
     # Comando para iniciar migraciones de base de datos
     try:
+        print("Iniciando versiones de base de datos...")
+        subprocess.run(['flask', 'db', 'init'], check=True)
+        print("Migraciones iniciadas con éxito.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error al iniciar migraciones: {e}")
+        return
+
+    # Comando para iniciar migraciones de base de datos
+    try:
         print("Iniciando migraciones de base de datos...")
         subprocess.run(['flask', 'db', 'migrate', '-m', '"Initial migration."'], check=True)
         print("Migraciones iniciadas con éxito.")
