@@ -21,7 +21,7 @@ class Config:
     """
 
     # URI de conexión a la base de datos MySQL, con las credenciales y el host tomados del archivo .env
-    SQLALCHEMY_DATABASE_URI = f"mysql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASS')}@{os.environ.get('DB_HOST')}/{os.environ.get('DB_NAME')}"
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{os.environ.get('DB_USER')}:{os.environ.get('DB_PASS')}@{os.environ.get('DB_HOST')}/{os.environ.get('DB_NAME')}"
     
     # Desactiva el rastreo de modificaciones para mejorar el rendimiento de la aplicación
     SQLALCHEMY_TRACK_MODIFICATIONS = False
