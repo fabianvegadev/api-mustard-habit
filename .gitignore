@@ -1,4 +1,5 @@
 venv
+migrations
 assets
 .env
 *.pyc
