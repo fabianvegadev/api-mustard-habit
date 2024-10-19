@@ -1,6 +1,5 @@
 from app import db
-from datetime import datetime
-
+from sqlalchemy.sql import func, True_
 
 class User(db.Model):
     """
@@ -28,8 +27,8 @@ class User(db.Model):
     nickname = db.Column(db.String(100), unique=True, nullable=False)  # Apodo de usuario, debe ser único y no nulo
     email = db.Column(db.String(100), unique=True, nullable=False)  # Correo electrónico del usuario, debe ser único y no nulo
     user_password = db.Column(db.String(200), nullable=False)  # Contraseña encriptada del usuario, no puede ser nula
-    user_status = db.Column(db.Boolean, default=True, nullable=False)  # Estado del usuario, por defecto es activo
-    user_created_date = db.Column(db.DateTime, default=datetime.now(), nullable=False)  # Fecha de creación del usuario, no puede ser nula
+    user_status = db.Column(db.Boolean, server_default=db.true(), nullable=False)  # Estado del usuario, por defecto es activo
+    user_created_date = db.Column(db.DateTime, server_default=func.now(), nullable=False)  # Fecha de creación del usuario, no puede ser nula
     assignments = db.relationship('Assignment', backref='user', lazy=True) # Relación con la tabla assignments
 
     def __init__(self, first_name, last_name, nickname, email, user_password):

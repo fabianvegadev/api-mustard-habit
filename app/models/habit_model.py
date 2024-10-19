@@ -18,7 +18,7 @@ class Habit(db.Model):
     habit_id = db.Column(db.Integer, primary_key=True) # Clave primaria
     habit_name = db.Column(db.String(100), nullable=False) # Nombre del hábito
     time_of_day = db.Column(db.Enum('mañana', 'tarde', 'noche', name='time_of_day_enum'), nullable=True) # Jornada en que se realizará el hábito
-    habit_status = db.Column(db.Boolean, default=True, nullable=False) # Status del hábito (activo/inactivo)
+    habit_status = db.Column(db.Boolean, server_default=db.true(), nullable=False) # Status del hábito (activo/inactivo)
     assignments = db.relationship('Assignment', backref='habit', lazy=True)  # Relación con la tabla 'assignments'
 
     def __init__(self, habit_name, time_of_day):
