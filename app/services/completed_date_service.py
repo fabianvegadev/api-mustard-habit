@@ -2,6 +2,7 @@ from app import db
 from app.models.completed_date_model import CompletedDate
 from app.models.assignment_model import Assignment
 from app.utils.validations import Validations
+from datetime import datetime
 
 class CompletedDateService:
     """
@@ -29,7 +30,7 @@ class CompletedDateService:
         Validations.check_fk_existence(Assignment.assignment_id, assignment_id, 'assignments')
         Validations.check_data_pair_existence(CompletedDate.fk_assignment_id, assignment_id, CompletedDate.completed_date, completed_date, 'date')
         
-        new_completed_date = CompletedDate(assignment_id, completed_date)
+        new_completed_date = CompletedDate(assignment_id, completed_date=datetime.now())
 
         db.session.add(new_completed_date)
         db.session.commit()

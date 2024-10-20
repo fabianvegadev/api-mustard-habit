@@ -1,6 +1,7 @@
 from app import db, bcrypt
 from app.models.user_model import User
 from app.utils.validations import Validations
+from datetime import datetime
 
 class UserService:
     """
@@ -33,7 +34,7 @@ class UserService:
         # Generando un hash seguro de la contraseña con bcrypt
         hashed_password = bcrypt.generate_password_hash(user_password).decode('utf-8')
         # Crear un nuevo usuario con la contraseña hasheada y los demás datos proporcionados
-        user = User(first_name, last_name, nickname, email, user_password=hashed_password)
+        user = User(first_name, last_name, nickname, email, user_password=hashed_password, user_created_date=datetime.now())
         # Añadir el nuevo usuario a la base de datos
         db.session.add(user)
         db.session.commit()

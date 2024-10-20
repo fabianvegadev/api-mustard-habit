@@ -3,6 +3,7 @@ from app.models.assignment_model import Assignment
 from app.models.habit_model import Habit
 from app.models.user_model import User
 from app.utils.validations import Validations
+from datetime import datetime
 
 class AssignmentService:
     """
@@ -18,6 +19,7 @@ class AssignmentService:
         Args:
             fk_user_id (int): ID del usuario que realizará el hábito.
             fk_habit_id (int): ID del hábito asignado al usuario.
+            created_date(datetime): Fecha de creacion de la asignación 
 
         Returns:
             Assignment: La asignación recién creada.
@@ -33,7 +35,7 @@ class AssignmentService:
         Validations.check_data_pair_existence(Assignment.fk_user_id, fk_user_id, Assignment.fk_habit_id, fk_habit_id, 'assignment')
 
         # Crear una nueva asignación
-        new_assignment = Assignment(fk_user_id, fk_habit_id)
+        new_assignment = Assignment(fk_user_id, fk_habit_id, created_date=datetime.now())
         
         # Guardar la nueva asignación en la base de datos
         db.session.add(new_assignment)

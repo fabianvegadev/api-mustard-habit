@@ -1,5 +1,5 @@
 from app import db
-from sqlalchemy.sql import func, True_
+from datetime import datetime
 
 class User(db.Model):
     """
@@ -28,10 +28,10 @@ class User(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)  # Correo electrónico del usuario, debe ser único y no nulo
     user_password = db.Column(db.String(200), nullable=False)  # Contraseña encriptada del usuario, no puede ser nula
     user_status = db.Column(db.Boolean, server_default=db.true(), nullable=False)  # Estado del usuario, por defecto es activo
-    user_created_date = db.Column(db.DateTime, server_default=func.now(), nullable=False)  # Fecha de creación del usuario, no puede ser nula
+    user_created_date = db.Column(db.DateTime, server_default=db.func.now(), nullable=False) # Fecha de creación del usuario, no puede ser nula
     assignments = db.relationship('Assignment', backref='user', lazy=True) # Relación con la tabla assignments
 
-    def __init__(self, first_name, last_name, nickname, email, user_password):
+    def __init__(self, first_name, last_name, nickname, email, user_password, user_created_date):
         """
         Constructor de la clase User.
 
@@ -41,7 +41,6 @@ class User(db.Model):
             nickname (str): El apodo de usuario, debe ser único.
             email (str): El correo electrónico del usuario, debe ser único.
             user_password (str): La contraseña encriptada del usuario.
-            user_status (bool): El estado del usuario (activo/inactivo).
             user_created_date (datetime): La fecha de creación del usuario.
         """
         self.first_name = first_name
@@ -49,3 +48,4 @@ class User(db.Model):
         self.nickname = nickname
         self.email = email
         self.user_password = user_password
+        self.user_created_date = user_created_date
